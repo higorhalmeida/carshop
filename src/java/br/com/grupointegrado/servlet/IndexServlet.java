@@ -43,7 +43,7 @@ public class IndexServlet extends HttpServlet {
             List< Anuncio > anuncio = new ArrayList<>();
             AnuncioDao anuncioDao = new AnuncioDao( connection );
             
-            anuncio = anuncioDao.getAll();
+            anuncio = anuncioDao.getMostRecentAnuncios();
             
             req.setAttribute( "anuncio" , anuncio );
             

@@ -18,7 +18,7 @@ public class AnuncioDao {
     public AnuncioDao( Connection conn) {
         this.connection = conn;
     }
-    
+
     public void create( Anuncio anuncio ) throws SQLException {
         
         String sql = "INSERT INTO anuncio ( titulo, ano_fabricacao, ano_modelo, "
@@ -154,6 +154,62 @@ public class AnuncioDao {
         return null;
     }
     
+    public List< Anuncio > getAnunciosByCategoriaId( Integer id ) {
+        
+        String sql = "SELECT * FROM anuncio WHERE categoria = " + id;
+        
+        try {
+            
+            PreparedStatement statement = connection.prepareStatement( sql );
+            
+            ResultSet resultset = statement.executeQuery();
+            
+            List< Anuncio > anuncios = new ArrayList<>();
+            
+            if ( resultset.first() ) {
+                do {
+                    
+                    Anuncio anuncio = getAnuncioByResultSet( resultset );
+                    anuncios.add( anuncio );
+                    
+                } while ( resultset.next() );
+                
+            }
+            
+            return anuncios;
+            
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
     
+    public List< Anuncio > getMostRecentAnuncios() {
+        String sql = "SELECT * FROM anuncio ORDER BY id DESC LIMIT 4";
+        
+        try {
+            
+            PreparedStatement statement = connection.prepareStatement( sql );
+            ResultSet result = statement.executeQuery();
+            List< Anuncio > anuncios = new ArrayList<>();
+            
+            if ( result.first() ) {
+                do {
+                    Anuncio anuncio = getAnuncioByResultSet( result );
+                    anuncios.add( anuncio );
+                } while ( result.next() );
+            }    
+        
+            return anuncios;
+            
+        } catch ( Exception e ) {
+            
+            e.printStackTrace();
+            return null;
+            
+        }
+        
+    }
 
 }

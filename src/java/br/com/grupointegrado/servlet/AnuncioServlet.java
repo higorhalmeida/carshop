@@ -76,7 +76,7 @@ public class AnuncioServlet extends HttpServlet {
             anuncio.setKm( Integer.parseInt( (String) parametros.get( "km" ) ) );
             anuncio.setValor( Double.parseDouble( (String) parametros.get( "valor" ) ) );
             anuncio.setCombustivel( (String) parametros.get( "combustivel" ) );
-            anuncio.setCategoria(Integer.parseInt( (String) parametros.get( "categoria" ) ) );
+            anuncio.setCategoria( Integer.parseInt( (String) parametros.get( "categoria" ) ) );
             anuncio.setImagem( file.getNome() );
             anuncio.setDescricao( (String) parametros.get( "descricao" ) );
             anuncio.setDataCadastro( dataHora );

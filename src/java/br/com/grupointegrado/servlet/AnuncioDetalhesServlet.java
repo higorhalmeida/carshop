@@ -1,7 +1,9 @@
 package br.com.grupointegrado.servlet;
 
 import br.com.grupointegrado.dao.AnuncioDao;
+import br.com.grupointegrado.dao.CategoriaDao;
 import br.com.grupointegrado.model.Anuncio;
+import br.com.grupointegrado.model.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -32,10 +34,16 @@ public class AnuncioDetalhesServlet extends HttpServlet {
             
             anuncio = anuncioDao.getById( id );
             
+            Categoria categoria = new Categoria();
+            CategoriaDao categoriaDao = new CategoriaDao( connection );
+            
+            categoria = categoriaDao.getCategoriaById( anuncio.getCategoria() );
+            
             req.setAttribute( "resultado", anuncio );
+            req.setAttribute( "categoria", categoria );
             
         } catch ( Exception e ) {
-            req.setAttribute( "error", "Houve um erro ao realizar a sua busca. Por favor, tente novamente em instantes.");
+            req.setAttribute( "error", "Houve um erro ao realizar a sua busca. Por favor, tente novamente em instantes." );
         }
         
         RequestDispatcher dispatcher = req.getRequestDispatcher( "WEB-INF/pages/detalhes.jsp" );

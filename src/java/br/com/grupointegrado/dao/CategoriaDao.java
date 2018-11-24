@@ -19,21 +19,55 @@ public class CategoriaDao {
     public List< Categoria > getAll() throws SQLException {
         String sql = "SELECT * FROM categoria";
         
-        PreparedStatement statement = connection.prepareStatement( sql );
-        List< Categoria > categoria = new ArrayList<>();
-        
-        ResultSet result = statement.executeQuery();
-        
-        if ( result.first() ) {
-            do {
-                Categoria cat = getCategoriaByResultset( result );
-                categoria.add( cat );
-            } while ( result.next() );
+        try {
+            PreparedStatement statement = connection.prepareStatement( sql );
+            List< Categoria > categoria = new ArrayList<>();
+
+            ResultSet result = statement.executeQuery();
+
+            if ( result.first() ) {
+                do {
+                    Categoria cat = getCategoriaByResultset( result );
+                    categoria.add( cat );
+                } while ( result.next() );
+            }
+
+            return categoria;
+        } catch ( Exception e ) {
+            
+            e.printStackTrace();
+            
         }
         
-        return categoria;
+        return null;
     }
     
+    public Categoria getCategoriaById( Integer id ) throws SQLException {
+        
+        String sql = "SELECT * FROM categoria WHERE id = " + id ;
+        
+        try {
+            
+            Categoria categoria = new Categoria();
+            
+            PreparedStatement statement = connection.prepareStatement( sql );
+            
+            ResultSet resultset = statement.executeQuery();
+            
+            if ( resultset.first() ) {
+                do {
+                    categoria = getCategoriaByResultset( resultset );
+                } while ( resultset.next() );
+            }
+            
+            return categoria;
+ 
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
     
     public static Categoria getCategoriaByResultset( ResultSet result ) throws SQLException {
         Categoria categoria = new Categoria();
