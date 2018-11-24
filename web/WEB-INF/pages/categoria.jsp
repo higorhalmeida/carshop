@@ -46,7 +46,11 @@
                                 <h5 style="margin-top: 0"><%= anuncio.getTitulo() %></h5>
                                 <p>
                                     <strong>Ano:</strong> <%= anuncio.getAnoFabricacao() %> - <%= anuncio.getAnoModelo() %>, <%= anuncio.getKm() %> km</p>
-                                <p>R$ <%= anuncio.getValor() %></p>
+                                <p>
+                                    <script>
+                                        document.write( ( <%= anuncio.getValor() %> ).toLocaleString( 'pt-BR' , { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' } ) );
+                                    </script>
+                                </p>
                                 
                                 <div class="row right-align">
                                     <div class="col s12">

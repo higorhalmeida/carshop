@@ -71,14 +71,19 @@
         </div>
                         
         <div class="col s12 m12 l2 xl2">
-            <div class="card-panel blue lighten-2 center-align" style="color: #FFF; font-weight: bolder;">R$ <%= anuncio.getValor() %></div>
+            <div class="card-panel blue lighten-2 center-align" style="color: #FFF; font-weight: bolder;">
+                <script>
+                    document.write( ( <%= anuncio.getValor() %> ).toLocaleString( 'pt-BR' , { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' } ) );
+                </script>
+            </div>
         </div>
                         
     </div>
                         
     <% } else { %>
-        <div class="card-panel red lighten-2">Não há resultados para sua busca.</div>
-    </div> <!-- fecha a div row no inicio da página -->
+        <div class="col s12">
+            <div class="card-panel red lighten-2">Não há resultados para sua busca.</div>
+        </div>
     <% } %>
         
 </div>

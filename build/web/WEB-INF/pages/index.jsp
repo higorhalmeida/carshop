@@ -140,7 +140,9 @@
                             <div class="col s12 m12 l3 xl3 center-align">
                                 <a class="black-text" href="anuncio-detalhes?id=<%= an.getId() %>">
                                     <div class="card-panel blue darken-1" style="color: rgba(255, 255, 255, 0.9);">
-                                        R$ <%= an.getValor() %>
+                                        <script>
+                                            document.write( ( <%= an.getValor() %> ).toLocaleString( 'pt-BR' , { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' } ) );
+                                        </script>
                                     </div>
                                 </a>
                             </div>
