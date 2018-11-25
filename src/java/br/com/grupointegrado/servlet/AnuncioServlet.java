@@ -5,6 +5,7 @@ import br.com.grupointegrado.dao.CategoriaDao;
 import br.com.grupointegrado.model.Anuncio;
 import br.com.grupointegrado.model.Categoria;
 import br.com.grupointegrado.model.Documento;
+import br.com.grupointegrado.util.AnuncioValidate;
 import br.com.grupointegrado.util.ServletUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,14 +57,13 @@ public class AnuncioServlet extends HttpServlet {
         
         Anuncio anuncio = new Anuncio();
         
-        /* get the current time on object contruct */
+        String valorFormatado = "";
+        
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
         Date date = new Date(); 
         String dataHora = dateFormat.format(date);
 
-       /** Construção do Objeto anuncio **/
-        try {
-            /** Pega os parâmetros pelo método estático de servletUtil **/
+       try {
             HashMap parametros = (HashMap) ServletUtil.getMultipartParameters( req );
             
             String docName =  ServletUtil.saveDocument( (Documento) parametros.get( "imagem" ) );
@@ -74,7 +74,16 @@ public class AnuncioServlet extends HttpServlet {
             anuncio.setAnoFabricacao( Integer.parseInt( (String) parametros.get( "anoFabricacao" ) ) );
             anuncio.setAnoModelo( Integer.parseInt( (String) parametros.get( "anoFabricacao" ) ) );
             anuncio.setKm( Integer.parseInt( (String) parametros.get( "km" ) ) );
-            anuncio.setValor( Double.parseDouble( (String) parametros.get( "valor" ) ) );
+            
+            // Formata o número em função da máscara aplicada no frontend
+            if ( ( (String) parametros.get( "valor" ) ).contains( "." ) ) {
+                valorFormatado = ( (String) parametros.get( "valor" ) ).replace( ".", "" );
+                valorFormatado = valorFormatado.replace( ",", "." );
+            } else {
+                valorFormatado = valorFormatado.replace( ",", "." );
+            }
+            
+            anuncio.setValor( Double.parseDouble( valorFormatado ) );
             anuncio.setCombustivel( (String) parametros.get( "combustivel" ) );
             anuncio.setCategoria( Integer.parseInt( (String) parametros.get( "categoria" ) ) );
             anuncio.setImagem( file.getNome() );
@@ -109,11 +118,11 @@ public class AnuncioServlet extends HttpServlet {
         
         req.setAttribute( "success", "Seu anuncio foi salvo com sucesso!" );
         
-        resp.sendRedirect( "anuncio" );
+        resp.sendRedirect( "/carshop" );
 //        RequestDispatcher dispatcher = req.getRequestDispatcher( "WEB-INF/pages/anuncio.jsp" );
 //        
 //        dispatcher.forward( req, resp );
         
     }
-  
+
 }

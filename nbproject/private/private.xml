@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/src/java/br/com/grupointegrado/dao/AnuncioDao.java</file>
-            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/src/java/br/com/grupointegrado/servlet/AnuncioDetalhesServlet.java</file>
+            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/web/WEB-INF/pages/anuncio.jsp</file>
+            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/src/java/br/com/grupointegrado/servlet/AnuncioServlet.java</file>
             <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/web/WEB-INF/pages/search.jsp</file>
-            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/web/WEB-INF/pages/detalhes.jsp</file>
+            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/web/WEB-INF/pages/contato.jsp</file>
+            <file>file:/Users/higordealmeida/NetBeansProjects/Carshop/src/java/br/com/grupointegrado/util/AnuncioValidate.java</file>
         </group>
     </open-files>
 </project-private>

@@ -3,6 +3,7 @@ package br.com.grupointegrado.servlet;
 import br.com.grupointegrado.dao.ContatoDao;
 import br.com.grupointegrado.email.JavaMailApp;
 import br.com.grupointegrado.model.Contato;
+import br.com.grupointegrado.util.ContatoValidation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -25,6 +26,31 @@ public class ContatoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         Contato contato = new Contato();
+        
+        if ( !ContatoValidation.nomeValidate( req.getParameter( "nome" ) ) ) {
+            req.setAttribute( "error", "Informe um nome válido." );
+            
+            RequestDispatcher dispatcher = req.getRequestDispatcher( "WEB-INF/pages/contato.jsp" );
+            
+            dispatcher.forward( req, resp );
+        }
+        
+        if ( !ContatoValidation.nomeValidate( req.getParameter( "nome" ) ) ) {
+            req.setAttribute( "error", "Informe um e-mail válido." );
+            
+            RequestDispatcher dispatcher = req.getRequestDispatcher( "WEB-INF/pages/contato.jsp" );
+            
+            dispatcher.forward( req, resp );
+        }
+        
+        if ( !ContatoValidation.nomeValidate( req.getParameter( "nome" ) ) ) {
+            req.setAttribute( "error", "Sua mensagem deve conter, pelo menos, 50 caracteres" );
+            
+            RequestDispatcher dispatcher = req.getRequestDispatcher( "WEB-INF/pages/contato.jsp" );
+            
+            dispatcher.forward( req, resp );
+        }
+        
         
         try {
             

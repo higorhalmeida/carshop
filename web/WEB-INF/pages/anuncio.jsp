@@ -164,10 +164,22 @@
     
     <script type="text/javascript">
         
+        /** Vars **/
+        
+        var titulo = document['anuncio']['titulo'];
+        var fabricacao = document['anuncio']['anoFabricacao'];
+        var modelo = document['anuncio']['anoModelo'];
+        var km = document['anuncio']['km'];
+        var valor = document['anuncio']['valor'];
+        var combustivel = document['anuncio']['combustivel'];
+        var categoria = document['anuncio']['categoria'];
+        var imagem = document['anuncio']['imagem'];
+        var descricao = document['anuncio']['descricao'];
+        
         /** onBlur Functions **/
         
         function onBlurValidateTitulo( titulo ) {
-            if ( titulo.value.length < 10 ) {
+            if ( !validateTitulo( titulo ) ) {
                 titulo.classList.remove( "validate" );
                 titulo.classList.add( "invalid" );
                 document.getElementById("tituloValidate").classList.remove("hide");
@@ -180,35 +192,33 @@
 
         function onBlurValidateFabricacao( anoFabricacao ) {            
             
-            if ( anoFabricacao.value < 1950 ) {
-                anoFabricacao.classList.remove( "validate" );
-                anoFabricacao.classList.add( "invalid" );
+            if ( !validateAnoFabricacao( fabricacao ) ) {
+                fabricacao.classList.remove( "validate" );
+                fabricacao.classList.add( "invalid" );
                 document.getElementById("anoFabricacaoValidate").classList.remove("hide");
             } else {
-                anoFabricacao.classList.remove( "invalid" );
-                anoFabricacao.classList.add( "valid" );
+                fabricacao.classList.remove( "invalid" );
+                fabricacao.classList.add( "valid" );
                 document.getElementById("anoFabricacaoValidate").classList.add("hide");
             }
         }
         
-        function onBlurValidateModelo( anoModelo ) {            
+        function onBlurValidateModelo( modelo ) {            
             
-            var anoFabricacao = parseFloat( document.anuncio.anoFabricacao.value );
-            
-            if ( anoModelo.value < anoFabricacao || anoModelo.value > anoFabricacao + 1 ) {
-                anoModelo.classList.remove( "validate" );
-                anoModelo.classList.add( "invalid" );
+            if ( !validateAnoModelo( modelo ) ) {
+                modelo.classList.remove( "validate" );
+                modelo.classList.add( "invalid" );
                 document.getElementById("anoModeloValidate").classList.remove("hide");
             } else {
-                anoModelo.classList.remove( "invalid" );
-                anoModelo.classList.add( "valid" );
+                modelo.classList.remove( "invalid" );
+                modelo.classList.add( "valid" );
                 document.getElementById("anoModeloValidate").classList.add("hide");
             }
         }
 
         function onBlurKmValidate( km ) {            
             
-            if ( km.value < 0 ) {
+            if ( !validateKm( km ) ) {
                 km.classList.remove( "validate" );
                 km.classList.add( "invalid" );
                 document.getElementById("kmValidate").classList.remove("hide");
@@ -221,7 +231,7 @@
         
         function onBlurValorValidate( valor ) {
             
-            if ( valor.value <= 0 || valor.value.length <= 3 ) {
+            if ( !validateValor( valor ) ) {
                 valor.classList.remove( "validate" );
                 valor.classList.add( "invalid" );
                 document.getElementById("valorValidate").classList.remove("hide");
@@ -233,34 +243,34 @@
             
         }
         
-        function onChangeCombustivelValidate( select ) {
+        function onChangeCombustivelValidate( combustivel ) {
             
-            if ( select.value === null || select.value === "" || select.value === undefined ) {
-                select.classList.remove( "validate" );
-                select.classList.add( "invalid" );
+            if ( !validateSelectField( combustivel ) ) {
+                combustivel.classList.remove( "validate" );
+                combustivel.classList.add( "invalid" );
                 document.getElementById("combustivelValidate").classList.remove("hide");
             } else {
-                select.classList.remove( "invalid" );
-                select.classList.add( "valid" );
+                combustivel.classList.remove( "invalid" );
+                combustivel.classList.add( "valid" );
                 document.getElementById("combustivelValidate").classList.add("hide");
             }
         }
         
-        function onChangeCategoriaValidate( select ) {
+        function onChangeCategoriaValidate( categoria ) {
             
-            if ( select.value === null || select.value === "" || select.value === undefined ) {
-                select.classList.remove( "validate" );
-                select.classList.add( "invalid" );
+            if ( !validateSelectField( categoria ) ) {
+                categoria.classList.remove( "validate" );
+                categoria.classList.add( "invalid" );
                 document.getElementById("categoriaValidate").classList.remove("hide");
             } else {
-                select.classList.remove( "invalid" );
-                select.classList.add( "valid" );
+                categoria.classList.remove( "invalid" );
+                categoria.classList.add( "valid" );
                 document.getElementById("categoriaValidate").classList.add("hide");
             }
         }
         
         function onBlurValidateDescricao( descricao ) {
-            if ( descricao.value.length < 10 ) {
+            if ( !validateDescricao( descricao ) ) {
                 descricao.classList.remove( "validate" );
                 descricao.classList.add( "invalid" );
                 document.getElementById("descricaoValidate").classList.remove("hide");
@@ -270,18 +280,6 @@
                 document.getElementById("descricaoValidate").classList.add("hide");
             }
         }
-        
-        /** Vars **/
-        
-        var titulo = document['anuncio']['titulo'];
-        var fabricacao = document['anuncio']['anoFabricacao'];
-        var modelo = document['anuncio']['anoModelo'];
-        var km = document['anuncio']['km'];
-        var valor = document['anuncio']['valor'];
-        var combustivel = document['anuncio']['combustivel'];
-        var categoria = document['anuncio']['categoria'];
-        var imagem = document['anuncio']['imagem'];
-        var descricao = document['anuncio']['descricao'];
 
         /** Form Validation **/
         
@@ -358,7 +356,7 @@
                 return false;
             }
                 
-            return false;
+            return true;
         }
         
         /** Used by Form Validation **/
@@ -372,7 +370,7 @@
         }
         
         function validateAnoModelo( anoModelo ) {
-            return anoModelo.value === fabricacao.value || anoModelo >= parseFloat( fabricacao.value + 1 );
+            return anoModelo.value === fabricacao.value || parseFloat( anoModelo.value ) >= ( parseFloat( fabricacao.value ) + 1 );
         }
         
         function validateKm( km ) {
@@ -380,7 +378,7 @@
         }
         
         function validateValor( valor ) {
-            return valor.value > 0;
+            return valor.value.length > 3;
         }
 
         function validateSelectField( select ) {
