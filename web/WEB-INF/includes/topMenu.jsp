@@ -5,7 +5,7 @@
             
             <div class="container">
 
-                <a href="/carshop/" class="brand-logo">CarShop</a>
+                <a href="/carshop/" class="brand-logo">Carshop</a>
 
                 <ul id="navmobile" class="right hide-on-med-and-down" >
                     
